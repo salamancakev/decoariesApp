@@ -1,0 +1,28 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Login</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <form (submit)="login()">
+<ion-list>
+  <ion-item>
+    <ion-input [formControl]="loginForm.controls['email']" placeholder="your@email.com" type="email"></ion-input>
+  </ion-item>
+  <div *ngIf="!loginForm.controls['email'].valid && loginForm.controls['email'].dirty" class="validator-error">
+    Please enter a valid email
+  </div>
+  <ion-item>
+    <ion-input [formControl]="loginForm.controls['password']" placeholder="*******" type="password"></ion-input>
+  </ion-item>
+</ion-list>
+<ion-button [disabled]="!loginForm.valid" type="submit" color="success" expand="block">
+  Login
+</ion-button>
+</form>
+<ion-button color="tertiary" expand="block" routerLink="/signup" routerDirection="forward">
+  Sign Up
+</ion-button>
+
+</ion-content>

@@ -1,0 +1,7 @@
+{
+  "name": "decoariesApp",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}

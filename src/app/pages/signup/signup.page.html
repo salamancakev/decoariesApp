@@ -1,0 +1,53 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/login"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Sign Up</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <form [formGroup]="signupForm" (submit)="signUp()">
+  <ion-list>
+    <ion-item>
+          <ion-label>Select a type of account</ion-label>
+          <ion-select [formControl]="signupForm.controls['type']" placeholder="Select One">
+            <ion-select-option value="Personal">Personal</ion-select-option>
+            <ion-select-option value="Company">Company</ion-select-option>
+          </ion-select>
+      </ion-item>
+
+      <div *ngIf="signupForm.controls['type'].value != ''">
+      <ion-item>
+      <ion-label position="floating" *ngIf="signupForm.controls['type'].value == 'Personal'">Full Name</ion-label>
+      <ion-label position="floating" *ngIf="signupForm.controls['type'].value == 'Company'">Company Name</ion-label>
+      <ion-input [formControl]="signupForm.controls['name']" ></ion-input>
+    </ion-item>
+      
+    <ion-item>
+      <ion-label position="floating">Email</ion-label>
+      <ion-input [formControl]="signupForm.controls['email']" type="email" ></ion-input>  
+    </ion-item>
+    <div *ngIf="!signupForm.controls.email.valid &&
+      signupForm.controls.email.dirty"
+      class="validator-error">
+      Please enter a valid email
+      </div>
+    <ion-item>
+      <ion-label position="floating">Password</ion-label>
+      <ion-input [formControl]="signupForm.controls['password']" type="password"></ion-input>
+    </ion-item>
+    <ion-item *ngIf="signupForm.controls['type'].value == 'Company'">
+    <ion-label position="floating">Website (opt)</ion-label>
+    <ion-input [formControl]="signupForm.controls['website']" ></ion-input>
+    </ion-item>
+      </div>
+      
+  </ion-list>
+  <ion-button [disabled]="!signupForm.valid" type="submit" color="success" expand="block">
+   Submit
+  </ion-button>
+</form>
+</ion-content>
+
