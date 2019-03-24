@@ -1,0 +1,41 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>My Bag</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+<ion-row>
+  <ion-col size="12">
+    <div class="ion-text-end">
+      Items in bag: {{totalItems}}
+    </div>
+  </ion-col>
+</ion-row>
+  <ion-list>
+    <ion-item-sliding *ngFor="let p of bagProducts">
+      <ion-item>
+      <ion-avatar slot="start" (click)="presentModal(p)">
+        <img src="../../../assets/images/madison.jpg">
+      </ion-avatar>
+      <ion-label>{{p.Name}} 
+        <br>
+        <ion-note> {{p.Description}} </ion-note>
+      </ion-label>
+      <ion-input [(ngModel)]="p.Quantity" type="number" slot="end" min="1" (change)="changeTotal()"></ion-input>
+    </ion-item>
+
+    <ion-item-options side="start">
+      <ion-item-option slot="icon-only" color="danger" (click)="presentDeleteAlert(p)"><ion-icon name="trash"></ion-icon></ion-item-option>
+    </ion-item-options>
+
+    </ion-item-sliding>
+    
+  </ion-list>
+  <ion-button expand="block" (click)="presentConfirmAlert()">
+    Request Quote
+  </ion-button>
+</ion-content>

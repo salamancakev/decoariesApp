@@ -1,0 +1,34 @@
+<ion-header>
+  <ion-toolbar color="primary">
+      <ion-buttons slot="start">
+          <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+    <ion-title>Products</ion-title>
+    <ion-buttons slot="end">
+      <ion-button id="bag-btn" routerLink="/shopping-bag" routerDirection="forward">
+        <ion-icon name="basket"></ion-icon>
+        <ion-badge *ngIf="dbService.productsInBag > 0" id="bag-badge" color="danger">{{dbService.productsInBag}}</ion-badge>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+<ion-searchbar [(ngModel)]="searchTerm" (ionChange)="searchChanged($event)" placeholder="Search product..."></ion-searchbar>
+<ion-item>
+  <ion-label>Select Product Type</ion-label>
+  <ion-select [(ngModel)]="type" (ionChange)="searchChanged($event)">
+    <ion-select-option value="">All</ion-select-option>
+    <ion-select-option value="1">1</ion-select-option>
+    <ion-select-option value="2">2</ion-select-option>
+    <ion-select-option value="3">3</ion-select-option>
+  </ion-select>
+</ion-item>
+
+<ion-list>
+  <ion-item button *ngFor="let item of products" [routerLink]="['/', 'products', item.idProduct]" routerDirection="forward">
+    <ion-label>{{item.Name}}</ion-label>
+  </ion-item>
+</ion-list>
+
+</ion-content>

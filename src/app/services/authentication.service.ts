@@ -11,15 +11,13 @@ export class AuthenticationService {
 
   authenticationState = new BehaviorSubject(false);
 
-  constructor(private storage : Storage, private plt : Platform, private http : HttpClient) { 
+  constructor(public storage : Storage, private plt : Platform, private http : HttpClient) { 
     this.plt.ready().then(() => {
       this.checkToken()
     })
   }
 
   signUp(user){
-    const headers = new HttpHeaders();
-    headers.append('Content-Type', 'application/json')
     return this.http.post('http://localhost:8080/signup', user,{headers : {'Content-Type' : 'application/json'}})
   }
 
@@ -35,6 +33,7 @@ export class AuthenticationService {
   isAuthenticated(){
     return this.authenticationState.value
   }
+
 
   checkToken(){
     return this.storage.get('token').then(res => {

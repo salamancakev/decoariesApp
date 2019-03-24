@@ -16,7 +16,18 @@ export class AppComponent implements OnInit{
   pages = [
     {
       title : 'Home',
-      url : '/home'
+      url : '/home',
+      icon : 'home'
+    },
+    {
+      title : 'Products',
+      url : '/products',
+      icon : 'cart'
+    },
+    {
+      title : 'Profile',
+      url : '/profile',
+      icon : 'person'
     }
   ]
 

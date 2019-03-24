@@ -1,16 +1,75 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar color="primary">
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
     <ion-title>
       Home
     </ion-title>
+    <ion-buttons slot="end">
+      <ion-button id="bag-btn" routerLink="/shopping-bag" routerDirection="forward">
+        <ion-icon name="basket"></ion-icon>
+        <ion-badge *ngIf="dbService.productsInBag > 0" id="bag-badge" color="danger">{{dbService.productsInBag}}</ion-badge>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content padding>
-  The world is your oyster.
-  <p>If you get lost, the <a target="_blank" rel="noopener" href="https://ionicframework.com/docs/">docs</a> will be your guide.</p>
+<ion-content>
+  <ion-grid>
+  <ion-row>
+    <ion-col size="12">
+      <h1 style="text-align :center">Welcome to the Decoaries mobile app!</h1>
+    </ion-col>
+  </ion-row>
+ 
+  <ion-row>
+    <ion-col size="12" sizeMd="6">
+<ion-card routerLink="/products" class="ion-activatable">  
+    <ion-ripple-effect></ion-ripple-effect>      
+   <img src="../../../assets/images/products_card.jpg" alt="">
+    <ion-card-header>
+      <ion-card-subtitle>Products</ion-card-subtitle>
+      <ion-card-title>Our Products</ion-card-title>
+    </ion-card-header>
+  
+    <ion-card-content>
+      Browse through all our products or search for a specific one. Select those that you like, mark them as favorites or add them to your shopping bag!
+    </ion-card-content>        
+  </ion-card>    
+</ion-col>
+<ion-col size="12" sizeMd="6">
+          <ion-card routerLink="/shopping-bag" class="ion-activatable" routerDirection="forward">
+              <ion-ripple-effect></ion-ripple-effect>
+              <img src="../../../assets/images/products_shopping_bag.png" alt="">
+               <ion-card-header>
+                 <ion-card-subtitle>Products</ion-card-subtitle>
+                 <ion-card-title>Your Shopping Bag</ion-card-title>
+               </ion-card-header>
+               <ion-card-content>
+                 See all the items that you've added to your shopping bag and request a quote for them
+               </ion-card-content>
+              
+             </ion-card>
+      </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col size="12" sizeMd="6">
+        <ion-card routerLink="/profile"  class="ion-activatable">
+            <ion-ripple-effect></ion-ripple-effect>
+            <img src="../../../assets/images/profile_card.jpg" alt="">
+             <ion-card-header>
+               <ion-card-subtitle>Profile</ion-card-subtitle>
+               <ion-card-title>Your Profile</ion-card-title>
+             </ion-card-header>
+             <ion-card-content>
+               Edit your account information and see your favorite products
+             </ion-card-content>
+           </ion-card>
+    </ion-col>
+  </ion-row>
+  </ion-grid>
+ 
 </ion-content>
 

@@ -1,0 +1,26 @@
+<ion-header>
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-button (click)="dismiss()">
+          Close
+        </ion-button>
+      </ion-buttons>
+      <ion-title> {{product?.Name}} </ion-title>
+    </ion-toolbar>
+  </ion-header>
+  
+  <ion-content>
+      <img src="../../../assets/images/madison.jpg" alt="" class="item-img">
+      <ion-item lines="none">
+        <ion-icon name="clipboard" slot="start"></ion-icon>
+        <ion-label text-wrap>{{product?.Description}}</ion-label>
+      </ion-item>
+      <ion-item lines="none">
+        <ion-icon slot="start" name="bowtie"></ion-icon>
+        <ion-label text-wrap>{{product?.Type}}</ion-label>
+      </ion-item>
+      <ion-item lines="none">
+        <ion-icon slot="start" name="calculator"></ion-icon>
+        <ion-label text-warp>{{product?.Size}}</ion-label>
+      </ion-item>
+  </ion-content>

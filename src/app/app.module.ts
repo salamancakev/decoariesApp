@@ -11,7 +11,8 @@ import { AppRoutingModule } from './app-routing.module';
 import {IonicStorageModule} from '@ionic/storage';
 import {HttpClientModule} from '@angular/common/http';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms'
-import  {MenuItemComponent} from './components/menu-item/menu-item.component'
+import {MenuItemComponent} from './components/menu-item/menu-item.component'
+import {ProductModalPageModule} from './modals/product-modal/product-modal.module'
 
 @NgModule({
   declarations: [AppComponent, MenuItemComponent],
@@ -22,7 +23,8 @@ import  {MenuItemComponent} from './components/menu-item/menu-item.component'
     IonicStorageModule.forRoot(), 
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule],
+    ReactiveFormsModule,
+    ProductModalPageModule],
   providers: [
     StatusBar,
     SplashScreen,
