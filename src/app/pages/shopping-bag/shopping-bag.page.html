@@ -16,7 +16,7 @@
   </ion-col>
 </ion-row>
   <ion-list>
-    <ion-item-sliding *ngFor="let p of bagProducts">
+    <ion-item-sliding *ngFor="let p of dbService.productsInBag">
       <ion-item>
       <ion-avatar slot="start" (click)="presentModal(p)">
         <img src="../../../assets/images/madison.jpg">
@@ -33,6 +33,11 @@
     </ion-item-options>
 
     </ion-item-sliding>
+
+    <ion-item>
+      <ion-label position="floating">Quote Notes (opt):</ion-label>
+      <ion-textarea [(ngModel)]="note" placeholder="Write a note for your quote..."></ion-textarea>
+    </ion-item>
     
   </ion-list>
   <ion-button expand="block" (click)="presentConfirmAlert()">

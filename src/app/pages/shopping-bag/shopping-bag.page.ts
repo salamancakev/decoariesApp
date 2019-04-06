@@ -15,6 +15,7 @@ export class ShoppingBagPage implements OnInit {
   bagProducts :any[];
   totalItems : any;
   completedProducts = []
+  note = '';
   constructor(private dbService : DatabaseService, 
     private router : Router,
     private alertController : AlertController, 
@@ -23,24 +24,18 @@ export class ShoppingBagPage implements OnInit {
     private toastController : ToastController) { }
 
   ngOnInit() {
-    this.totalItems = 0;
     this.storage.get('token').then(res=>{
       this.token = res
-      this.dbService.getProductsInBag(this.token).subscribe(data=>{
-        if(data){
-          this.bagProducts = data['products']
-          this.bagProducts.forEach(product=>{
+      this.totalItems = 0;
+          this.dbService.productsInBag.forEach(product=>{
             this.totalItems = this.totalItems+product.Quantity
           }) 
-        }
-        
-      })
     })
   }
 
   changeTotal(){
     this.totalItems=0;
-    this.bagProducts.forEach(product=>{
+    this.dbService.productsInBag.forEach(product=>{
       this.totalItems = this.totalItems+product.Quantity
     }) 
   }
@@ -76,9 +71,9 @@ export class ShoppingBagPage implements OnInit {
             this.dbService.deleteProductQuote(product, this.token).subscribe(data=>{
               console.log(product)
               if(data){
-                this.dbService.productsInBag--
+                this.dbService.productsInBag.splice(this.dbService.productsInBag.indexOf(), 1)
+                this.changeTotal()
                 this.presentToast(data['msg'], 3000)
-                return this.ngOnInit()
               }
             })
           }
@@ -97,7 +92,7 @@ export class ShoppingBagPage implements OnInit {
 
 
   async presentConfirmAlert(){
-    if(this.bagProducts.length==0){
+    if(this.dbService.productsInBag.length==0){
       this.presentToast("You don't have any products in your shopping bag", 3000)
       return false;
     }
@@ -110,8 +105,9 @@ export class ShoppingBagPage implements OnInit {
           role : 'confirm',
           handler : () =>{
             let body = {
-              products : this.bagProducts,
-              idQuote : this.bagProducts[0].idQuote
+              products : this.dbService.productsInBag,
+              idQuote : this.dbService.productsInBag[0].idQuote,
+              note : this.note
             }
             console.log(body)
 

@@ -47,7 +47,10 @@ export class LoginPage implements OnInit {
         let user = {
           id : data['user'].idUser,
           email : data['user'].Email,
-          name : data['user'].Name
+          name : data['user'].Name,
+          type : data['user'].Type,
+          website : data['user'].Website,
+          phone : data['user'].Phone
         }
         this.storage.set('token', data['token'])
         this.storage.set('user', user)

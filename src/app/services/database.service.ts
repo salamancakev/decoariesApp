@@ -8,6 +8,7 @@ import { Storage } from '@ionic/storage';
 })
 export class DatabaseService { 
   productsInBag : any;
+  products : any
   constructor(private http : HttpClient, private storage : Storage) {
    }
   getProducts(token){
@@ -46,13 +47,6 @@ export class DatabaseService {
     }})
   }
 
-  getQuote(token){
-    return this.http.get('http://localhost:8080/get-quote', {headers : {
-      'Content-Type' : 'application-json',
-      'Authorization' : 'Bearer '+token
-    }})
-  }
-
   deleteProductQuote(product, token){
     return this.http.post('http://localhost:8080/delete-product-quote', product, {headers : {
       'Authorization' : 'Bearer '+token
@@ -61,6 +55,12 @@ export class DatabaseService {
 
   requestQuote(products, token){
     return this.http.post('http://localhost:8080/submit-quote', products, {headers : {
+      'Authorization' : 'Bearer '+token
+    }})
+  }
+
+  editUser(user, token){
+    return this.http.post('http://localhost:8080/edit-user', user, {headers : {
       'Authorization' : 'Bearer '+token
     }})
   }

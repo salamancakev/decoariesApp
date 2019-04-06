@@ -20,6 +20,11 @@ export class AppComponent implements OnInit{
       icon : 'home'
     },
     {
+      title : 'About Us',
+      url : '/about',
+      icon : 'information-circle'
+    },
+    {
       title : 'Products',
       url : '/products',
       icon : 'cart'
@@ -53,7 +58,7 @@ export class AppComponent implements OnInit{
 
   initializeApp() {
     this.platform.ready().then(() => {
-      this.statusBar.styleDefault();
+      this.statusBar.backgroundColorByHexString('#4165f4')
       
 
       this.authService.authenticationState.subscribe(state =>{
@@ -64,6 +69,7 @@ export class AppComponent implements OnInit{
         }
         else{
           this.router.navigate(['login'])
+          
         }
         
       })

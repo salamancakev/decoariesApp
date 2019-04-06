@@ -25,6 +25,7 @@ export class ProductsPage implements OnInit {
         this.token = res;
         this.dbService.getProducts(this.token).subscribe(data=>{
           this.products=data;
+          this.dbService.products = data;
         })
       }
     })
@@ -49,7 +50,7 @@ export class ProductsPage implements OnInit {
 
     this.dbService.getProductType(product, this.token).subscribe(data =>{
       if (data){
-        this.products = data;
+        this.dbService.products = data;
       }
     })
   }

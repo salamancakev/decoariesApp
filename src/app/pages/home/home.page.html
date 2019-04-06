@@ -9,7 +9,7 @@
     <ion-buttons slot="end">
       <ion-button id="bag-btn" routerLink="/shopping-bag" routerDirection="forward">
         <ion-icon name="basket"></ion-icon>
-        <ion-badge *ngIf="dbService.productsInBag > 0" id="bag-badge" color="danger">{{dbService.productsInBag}}</ion-badge>
+        <ion-badge *ngIf="dbService.productsInBag?.length > 0" id="bag-badge" color="danger">{{dbService.productsInBag.length}}</ion-badge>
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
@@ -27,7 +27,7 @@
     <ion-col size="12" sizeMd="6">
 <ion-card routerLink="/products" class="ion-activatable">  
     <ion-ripple-effect></ion-ripple-effect>      
-   <img src="../../../assets/images/products_card.jpg" alt="">
+   <img src="../../../assets/images/Decoaries-30.jpg" alt="">
     <ion-card-header>
       <ion-card-subtitle>Products</ion-card-subtitle>
       <ion-card-title>Our Products</ion-card-title>
@@ -41,7 +41,7 @@
 <ion-col size="12" sizeMd="6">
           <ion-card routerLink="/shopping-bag" class="ion-activatable" routerDirection="forward">
               <ion-ripple-effect></ion-ripple-effect>
-              <img src="../../../assets/images/products_shopping_bag.png" alt="">
+              <img src="../../../assets/images/Decoaries-24.jpg" alt="">
                <ion-card-header>
                  <ion-card-subtitle>Products</ion-card-subtitle>
                  <ion-card-title>Your Shopping Bag</ion-card-title>
@@ -58,7 +58,7 @@
     <ion-col size="12" sizeMd="6">
         <ion-card routerLink="/profile"  class="ion-activatable">
             <ion-ripple-effect></ion-ripple-effect>
-            <img src="../../../assets/images/profile_card.jpg" alt="">
+            <img src="../../../assets/images/Decoaries-1.jpg" alt="">
              <ion-card-header>
                <ion-card-subtitle>Profile</ion-card-subtitle>
                <ion-card-title>Your Profile</ion-card-title>

@@ -24,7 +24,8 @@ export class SignupPage implements OnInit {
       ])],
       password : ['', Validators.required],
       type : ['', Validators.required],
-      website : ['']
+      website : [''],
+      phone : ['']
     })
   }
 
@@ -48,7 +49,8 @@ export class SignupPage implements OnInit {
       email : this.signupForm.controls['email'].value,
       password : this.signupForm.controls['password'].value,
       type : this.signupForm.controls['type'].value,
-      website : this.signupForm.controls['website'].value
+      website : this.signupForm.controls['website'].value,
+      phone : this.signupForm.controls['phone'].value
     }
 
     if(user.website == ''){

@@ -16,7 +16,12 @@ export class HomePage implements OnInit{
         let token = jwt
         this.dbService.getProductsInBag(token).subscribe(data=>{
           if(data['success']){
-            this.dbService.productsInBag=data['products'].length
+            this.dbService.productsInBag=data['products']
+          }
+        })
+        this.dbService.getProducts(token).subscribe(data=>{
+          if(data['success']){
+            this.dbService.products=data
           }
         })
       })    

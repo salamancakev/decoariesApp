@@ -19,25 +19,16 @@ export class ProductDetailsPage implements OnInit {
     private router : Router) { }
 
   ngOnInit() {
-    let id= this.activatedRoute.snapshot.paramMap.get('id')
-    let body = {
-      id : id
-    }
     this.storage.get('token').then(res=>{
-      if(res){
-        this.token = res
-        this.dbService.getDetails(body,this.token).subscribe(data=>{
-          if(data){
-            this.product=data;
-            this.dbService.getProductsInBag(this.token).subscribe(data=>{
-              if(data['success']){
-                this.dbService.productsInBag=data['products'].length
-              }
-            })
-          }
-        })
+      this.token=res
+      let id= this.activatedRoute.snapshot.paramMap.get('id')
+    this.dbService.products.forEach(element => {
+      if(element.idProduct == id){
+        this.product=element
       }
+    });
     })
+    
   }
 
   async presentToast(message, duration){
@@ -50,13 +41,25 @@ export class ProductDetailsPage implements OnInit {
 
 
   onAdd(){
-      let body = {
-        idProduct : this.product.idProduct
-      }
 
-      this.dbService.addQuote(body, this.token).subscribe(data=>{
+      this.dbService.productsInBag.forEach(element=>{
+        if(element == this.product){
+          this.presentToast('Product is already in your shopping bag', 3000)
+          return false
+        }
+      })
+
+      this.dbService.addQuote(this.product, this.token).subscribe(data=>{
         if(data['success']){
-          this.dbService.productsInBag++
+          let pushProduct = {
+            idProduct : this.product.idProduct,
+            Name : this.product.Name,
+            Description : this.product.Description,
+            Type : this.product.Type,
+            Size : this.product.Size,
+            Quantity : 1
+          }
+          this.dbService.productsInBag.push(pushProduct)
           this.presentToast('Product added to your bag', 3000)
           return this.router.navigate(['/products'])
         }

@@ -7,7 +7,7 @@
     <ion-buttons slot="end">
       <ion-button id="bag-btn" routerLink="/shopping-bag" routerDirection="forward">
         <ion-icon name="basket"></ion-icon>
-        <ion-badge *ngIf="dbService.productsInBag > 0" id="bag-badge" color="danger">{{dbService.productsInBag}}</ion-badge>
+        <ion-badge *ngIf="dbService.productsInBag.length > 0" id="bag-badge" color="danger">{{dbService.productsInBag?.length}}</ion-badge>
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
@@ -26,7 +26,7 @@
 </ion-item>
 
 <ion-list>
-  <ion-item button *ngFor="let item of products" [routerLink]="['/', 'products', item.idProduct]" routerDirection="forward">
+  <ion-item button *ngFor="let item of dbService.products" [routerLink]="['/', 'products', item.idProduct]" routerDirection="forward">
     <ion-label>{{item.Name}}</ion-label>
   </ion-item>
 </ion-list>
