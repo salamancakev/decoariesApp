@@ -39,6 +39,7 @@ export class ShoppingBagPage implements OnInit {
       this.totalItems = this.totalItems+product.Quantity
     }) 
   }
+  
 
   async presentModal(product){
     let modal = await this.modalController.create({
@@ -68,10 +69,14 @@ export class ShoppingBagPage implements OnInit {
           text : 'Yes',
           role : 'confirm',
           handler : () =>{
-            this.dbService.deleteProductQuote(product, this.token).subscribe(data=>{
+            let body = {
+              idProduct : product.idProduct,
+              idQuote : this.dbService.idBag
+            }
+            this.dbService.deleteProductQuote(body, this.token).subscribe(data=>{
               console.log(product)
               if(data){
-                this.dbService.productsInBag.splice(this.dbService.productsInBag.indexOf(), 1)
+                this.dbService.productsInBag.splice(this.dbService.productsInBag.indexOf(product), 1)
                 this.changeTotal()
                 this.presentToast(data['msg'], 3000)
               }
@@ -106,13 +111,14 @@ export class ShoppingBagPage implements OnInit {
           handler : () =>{
             let body = {
               products : this.dbService.productsInBag,
-              idQuote : this.dbService.productsInBag[0].idQuote,
-              note : this.note
+              idQuote : this.dbService.idBag,
+              note : this.note 
             }
             console.log(body)
 
             this.dbService.requestQuote(body, this.token).subscribe(data=>{
               if(data['success']){
+                this.dbService.productsInBag = [];
                 this.router.navigate(['home'])
                 return this.presentSentAlert();
               }

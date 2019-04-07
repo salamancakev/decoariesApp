@@ -60,6 +60,7 @@ export class ProductDetailsPage implements OnInit {
             Quantity : 1
           }
           this.dbService.productsInBag.push(pushProduct)
+          this.dbService.idBag = data['id']
           this.presentToast('Product added to your bag', 3000)
           return this.router.navigate(['/products'])
         }

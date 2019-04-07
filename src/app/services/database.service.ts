@@ -9,6 +9,7 @@ import { Storage } from '@ionic/storage';
 export class DatabaseService { 
   productsInBag : any;
   products : any
+  idBag : any;
   constructor(private http : HttpClient, private storage : Storage) {
    }
   getProducts(token){
