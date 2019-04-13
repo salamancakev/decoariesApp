@@ -112,7 +112,7 @@ export class AppComponent implements OnInit{
       ]
 
     })
-
+    this.isLogged = false;
     return await alert.present()
   }
 

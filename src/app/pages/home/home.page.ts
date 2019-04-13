@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DatabaseService } from 'src/app/services/database.service';
 import { Storage } from '@ionic/storage';
+import { Platform, AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-home',
@@ -8,7 +9,11 @@ import { Storage } from '@ionic/storage';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage implements OnInit{
-  constructor(private dbService : DatabaseService,private storage : Storage){
+  subscription : any;
+  constructor(private dbService : DatabaseService,
+    private storage : Storage, 
+    private platform : Platform,
+    private alertController : AlertController){
 
   }
   ngOnInit(){
@@ -32,6 +37,36 @@ export class HomePage implements OnInit{
 
   }
 
+ ionViewDidEnter() {
+   this.subscription = this.platform.backButton.subscribe(()=>{
+    this.presentExitAlert();
+   })
+ }
+
+ ionViewWillLeave() {
+   this.subscription.unsubscribe();
+ }
+
+ async presentExitAlert(){
+  let alert = await this.alertController.create({
+    header : 'Exit App',
+    message : 'Are you sure you want to exit the app?',
+    buttons : [
+      {
+        text : 'Yes',
+        role : 'confirm',
+        handler : ()=>{
+          navigator['app'].exitApp();
+        }
+      },
+      {
+        text : 'No',
+        role : 'cancel'
+      }
+    ]
+  })
+  return await alert.present()
+}
   onClick(){
     console.log("Clicking works")
   }

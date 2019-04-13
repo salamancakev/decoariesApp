@@ -3,6 +3,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms'
 import { ToastController, LoadingController } from '@ionic/angular';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { Storage } from '@ionic/storage';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -16,6 +17,7 @@ export class LoginPage implements OnInit {
     private authService : AuthenticationService, 
     private toastController : ToastController,
     private storage : Storage,
+    private router : Router,
     private loadingController : LoadingController) {
       this.loginForm = this.formBuilder.group({
         email : ['', Validators.compose([
@@ -27,7 +29,16 @@ export class LoginPage implements OnInit {
      }
 
   ngOnInit() {
+    this.loginForm.controls['email'].setValue('')
+    this.loginForm.controls['password'].setValue('')
   }
+
+  ionViewWillEnter() {
+    if(this.authService.isAuthenticated()){
+      this.router.navigate(['home'])
+    }
+  }
+  
 
   async presentToast(message, duration){
     let toast = await this.toastController.create({
@@ -65,8 +76,6 @@ export class LoginPage implements OnInit {
         this.storage.set('token', data['token'])
         this.storage.set('user', user)
         this.authService.authenticationState.next(true)
-        this.loginForm.controls['email'].setValue('')
-        this.loginForm.controls['password'].setValue('')
         return this.presentToast("Welcome "+user.name+"!", 3000)
       }
       else{
