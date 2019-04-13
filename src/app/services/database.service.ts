@@ -65,4 +65,19 @@ export class DatabaseService {
       'Authorization' : 'Bearer '+token
     }})
   }
+
+  sendMessage(message, token){
+    return this.http.post('http://localhost:8080/send-message', message, {headers : {
+      'Authorization' : 'Bearer '+token
+    }})
+  }
+
+  requestAppointment(body, token){
+    return this.http.post('http://localhost:8080/request-appointment', body, {headers : {
+      'Authorization' : 'Bearer '+token
+    }})
+  }
+
 }
+
+  

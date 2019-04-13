@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DatabaseService } from 'src/app/services/database.service';
-import { AlertController, ModalController, ToastController } from '@ionic/angular';
+import { AlertController, ModalController, ToastController, LoadingController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 import {ProductModalPage} from '../../modals/product-modal/product-modal.page'
 import { Router } from '@angular/router';
@@ -21,7 +21,8 @@ export class ShoppingBagPage implements OnInit {
     private alertController : AlertController, 
     private storage : Storage,
     private modalController : ModalController,
-    private toastController : ToastController) { }
+    private toastController : ToastController,
+    private loadingController : LoadingController) { }
 
   ngOnInit() {
     this.storage.get('token').then(res=>{
@@ -60,6 +61,15 @@ export class ShoppingBagPage implements OnInit {
     return await toast.present()
   }
 
+  async presentLoading(){
+    let loading = await this.loadingController.create({
+      message : 'Please wait...',
+      spinner : 'crescent'
+    })
+
+    return await loading.present()
+  }
+
    async presentDeleteAlert(product){
     let alert = await this.alertController.create({
       header: 'Remove Product',
@@ -69,6 +79,7 @@ export class ShoppingBagPage implements OnInit {
           text : 'Yes',
           role : 'confirm',
           handler : () =>{
+            this.presentLoading();
             let body = {
               idProduct : product.idProduct,
               idQuote : this.dbService.idBag
@@ -78,6 +89,7 @@ export class ShoppingBagPage implements OnInit {
               if(data){
                 this.dbService.productsInBag.splice(this.dbService.productsInBag.indexOf(product), 1)
                 this.changeTotal()
+                this.loadingController.dismiss()
                 this.presentToast(data['msg'], 3000)
               }
             })
@@ -109,6 +121,7 @@ export class ShoppingBagPage implements OnInit {
           text : 'Submit',
           role : 'confirm',
           handler : () =>{
+            this.presentLoading()
             let body = {
               products : this.dbService.productsInBag,
               idQuote : this.dbService.idBag,
@@ -118,6 +131,7 @@ export class ShoppingBagPage implements OnInit {
 
             this.dbService.requestQuote(body, this.token).subscribe(data=>{
               if(data['success']){
+                this.loadingController.dismiss()
                 this.dbService.productsInBag = [];
                 this.router.navigate(['home'])
                 return this.presentSentAlert();

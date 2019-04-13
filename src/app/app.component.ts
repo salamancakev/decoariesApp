@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { Platform } from '@ionic/angular';
+import { Platform, LoadingController, AlertController, MenuController } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AuthenticationService } from './services/authentication.service';
@@ -12,6 +12,7 @@ import { Router, RouterEvent, NavigationEnd } from '@angular/router';
 })
 export class AppComponent implements OnInit{
   isLogged = false;
+  loading : any;
 
   pages = [
     {
@@ -30,6 +31,11 @@ export class AppComponent implements OnInit{
       icon : 'cart'
     },
     {
+      title : 'Appointment',
+      url : '/appointment',
+      icon : 'calendar'
+    },
+    {
       title : 'Profile',
       url : '/profile',
       icon : 'person'
@@ -41,7 +47,10 @@ export class AppComponent implements OnInit{
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
     private authService : AuthenticationService,
-    private router : Router
+    private router : Router,
+    private loadingController: LoadingController,
+    private alertController : AlertController,
+    private menuController : MenuController
   ) {
     this.initializeApp();
   }
@@ -56,25 +65,55 @@ export class AppComponent implements OnInit{
     })
   }
 
-  initializeApp() {
-    this.platform.ready().then(() => {
+   initializeApp() {
+    this.platform.ready().then(async () => {
       this.statusBar.backgroundColorByHexString('#4165f4')
-      
-
-      this.authService.authenticationState.subscribe(state =>{
-        console.log('Auth changed: ',state)
-        if(state){
-          this.isLogged = true
-          this.router.navigate(['home'])
-        }
-        else{
-          this.router.navigate(['login'])
-          
-        }
-        
+      let loading = await this.loadingController.create({
+        message : 'Please wait...',
+        spinner : 'crescent',
       })
-    });
-    
-    
+      loading.present().then(()=>{
+        this.authService.authenticationState.subscribe(state =>{
+          console.log('Auth changed: ',state)
+          if(state){
+            this.isLogged = true
+            this.router.navigate(['home'])
+            this.loadingController.dismiss()
+          }
+          else{
+            this.loadingController.dismiss()
+            this.router.navigate(['login'])
+            
+          }
+          
+        })
+      });
+      })
+      
   }
+
+  async logout(){
+    let alert =  await this.alertController.create({
+      header : 'Logout',
+      message : 'Are you sure you want to logout?',
+      buttons : [
+        {
+          text : 'Yes',
+          role : 'confirm',
+          handler : ()=>{
+            this.authService.logout()
+            this.menuController.toggle()
+          }
+        },
+        {
+          text : 'No',
+          role : 'cancel'
+        }
+      ]
+
+    })
+
+    return await alert.present()
+  }
+
 }

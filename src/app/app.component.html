@@ -13,6 +13,12 @@
             </ion-menu-toggle>
           </ion-list>
         </ion-content>
+        <ion-footer>
+          <ion-item (click)="logout()">
+            <ion-icon slot="start" name="power"></ion-icon>
+            <ion-label>Logout</ion-label>
+          </ion-item>
+        </ion-footer>
     </ion-menu>
     <ion-router-outlet main></ion-router-outlet>
   </ion-split-pane>

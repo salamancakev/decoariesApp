@@ -27,7 +27,8 @@ export class AuthenticationService {
   }
 
   logout(){
-
+    this.storage.clear()
+    this.authenticationState.next(false)
   }
 
   isAuthenticated(){

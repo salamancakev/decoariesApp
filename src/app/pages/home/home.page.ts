@@ -17,6 +17,10 @@ export class HomePage implements OnInit{
         this.dbService.getProductsInBag(token).subscribe(data=>{
           if(data['success']){
             this.dbService.productsInBag=data['products']
+            if(this.dbService.productsInBag.length > 0){
+              this.dbService.idBag = this.dbService.productsInBag[0].idQuote
+            }
+            console.log(this.dbService.idBag)
           }
         })
         this.dbService.getProducts(token).subscribe(data=>{

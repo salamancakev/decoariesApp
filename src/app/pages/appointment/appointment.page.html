@@ -1,0 +1,25 @@
+<ion-header>
+  <ion-toolbar color="primary">
+      <ion-buttons slot="start">
+          <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+    <ion-title>Appointment</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+<h2 text-center>Make an appointment</h2>
+<ion-list>
+  <ion-item>
+    <ion-label>Desired date</ion-label>
+    <ion-datetime [(ngModel)]="date" name="date" picker-format="MM/DD/YYYY"></ion-datetime>
+  </ion-item>
+  <ion-item>
+    <ion-label>Availability</ion-label>
+    <ion-datetime [(ngModel)]="time" name="time" picker-format="hh:mm:A" display-format="hh:mm A"></ion-datetime>
+  </ion-item>
+  <ion-button (click)="onSubmit()" expand="block" color="success" [disabled]="!isValid()">
+    Submit
+  </ion-button>
+</ion-list>
+</ion-content>
