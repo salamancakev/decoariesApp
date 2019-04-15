@@ -13,12 +13,12 @@ export class DatabaseService {
   constructor(private http : HttpClient, private storage : Storage) {
    }
   getProducts(token){
-            return this.http.get('http://localhost:8080/products', {headers : { 'Authorization' : 'Bearer '+token}})
+            return this.http.get('https://www.decoariesapp.herokuapp.com/products', {headers : { 'Authorization' : 'Bearer '+token}})
 
   }
 
   getProductType(product, token){
-    return this.http.post('http://localhost:8080/products', product, {headers : 
+    return this.http.post('https://www.decoariesapp.herokuapp.com/products', product, {headers : 
     {'Content-Type' : 'application/json', 
     'Authorization' : 'Bearer '+ token}
     }); 
@@ -26,7 +26,7 @@ export class DatabaseService {
   }
 
   getDetails(id, token){
-    return this.http.post('http://localhost:8080/product-details', id, {headers : {
+    return this.http.post('https://www.decoariesapp.herokuapp.com/product-details', id, {headers : {
       'Content-Type' : 'application/json',
       'Authorization' : 'Bearer '+token
     }
@@ -34,7 +34,7 @@ export class DatabaseService {
   }
 
   addQuote(body, token){
-    return this.http.post('http://localhost:8080/add-quote', body, {headers : {
+    return this.http.post('https://www.decoariesapp.herokuapp.com/add-quote', body, {headers : {
       'Content-Type' : 'application/json',
       'Authorization' : 'Bearer '+token
     }
@@ -42,38 +42,38 @@ export class DatabaseService {
   }
 
   getProductsInBag(token){
-  return this.http.get('http://localhost:8080/get-bag', {headers : {
+  return this.http.get('https://www.decoariesapp.herokuapp.com/get-bag', {headers : {
       'Content-Type' : 'application-json',
       'Authorization' : 'Bearer '+token
     }})
   }
 
   deleteProductQuote(product, token){
-    return this.http.post('http://localhost:8080/delete-product-quote', product, {headers : {
+    return this.http.post('https://www.decoariesapp.herokuapp.com/delete-product-quote', product, {headers : {
       'Authorization' : 'Bearer '+token
     }})
   }
 
   requestQuote(products, token){
-    return this.http.post('http://localhost:8080/submit-quote', products, {headers : {
+    return this.http.post('https://www.decoariesapp.herokuapp.com/submit-quote', products, {headers : {
       'Authorization' : 'Bearer '+token
     }})
   }
 
   editUser(user, token){
-    return this.http.post('http://localhost:8080/edit-user', user, {headers : {
+    return this.http.post('https://www.decoariesapp.herokuapp.com/edit-user', user, {headers : {
       'Authorization' : 'Bearer '+token
     }})
   }
 
   sendMessage(message, token){
-    return this.http.post('http://localhost:8080/send-message', message, {headers : {
+    return this.http.post('https://www.decoariesapp.herokuapp.com/send-message', message, {headers : {
       'Authorization' : 'Bearer '+token
     }})
   }
 
   requestAppointment(body, token){
-    return this.http.post('http://localhost:8080/request-appointment', body, {headers : {
+    return this.http.post('https://www.decoariesapp.herokuapp.com/request-appointment', body, {headers : {
       'Authorization' : 'Bearer '+token
     }})
   }

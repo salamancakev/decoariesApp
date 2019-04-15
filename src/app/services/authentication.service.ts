@@ -18,12 +18,12 @@ export class AuthenticationService {
   }
 
   signUp(user){
-    return this.http.post('http://localhost:8080/signup', user,{headers : {'Content-Type' : 'application/json'}})
+    return this.http.post('https://www.decoariesapp.herokuapp.com/signup', user,{headers : {'Content-Type' : 'application/json'}})
   }
 
 
   login(user){
-    return this.http.post('http://localhost:8080/login', user,{headers : {'Content-Type' : 'application/json'}})
+    return this.http.post('https://www.decoariesapp.herokuapp.com/login', user,{headers : {'Content-Type' : 'application/json'}})
   }
 
   logout(){
@@ -39,7 +39,7 @@ export class AuthenticationService {
   checkToken(){
     return this.storage.get('token').then(res => {
       if(res){
-        this.http.get('http://localhost:8080/checkauth', {headers : {'Authorization' : 'Bearer '+res}}).subscribe(data=>{
+        this.http.get('https://www.decoariesapp.herokuapp.com/checkauth', {headers : {'Authorization' : 'Bearer '+res}}).subscribe(data=>{
           console.log(data)
           if(data['success']){
             this.authenticationState.next(true)
